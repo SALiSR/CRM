@@ -1,0 +1,49 @@
+entity Users {
+	login String,
+    password String
+}
+entity Role {
+	roleName String
+}
+relationship ManyToMany{
+	Users to Role
+}
+entity Client{
+	name String
+    relationshipStatus RelationshipStatus
+}
+entity ContactInformation {
+	typeContact Typecontact,
+    value String 
+}
+enum Typecontact {
+	MOBTEL1, MOBTEL2,
+    WORKTEL1, WORKTEL2,
+    HOMETEL,
+    EMAIL1, EMAIL2,
+    ADRESS1, ADRESS2
+}
+enum RelationshipStatus {
+	COLDCONTACT, INTEREST,
+    CONVERSATION, PURCHASE
+}
+relationship ManyToMany {
+	Client {contactInformation}  to ContactInformation {client}
+}
+relationship ManyToOne {
+	Client{group} to Client
+}
+entity Event {
+	docNum String,
+    docDate ZonedDateTime
+    typeEvent TypeEvent
+    noteEvent String
+}
+enum TypeEvent {
+	CALL, EMAIL, MEETING, MAIL
+}
+relationship ManyToOne {
+	Event{client} to Client
+}
+
+
